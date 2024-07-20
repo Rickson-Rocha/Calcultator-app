@@ -1,25 +1,20 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Switch } from 'react-native';
-import { ThemeContext } from './src/context/ThemeContext';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { myColors } from './src/styles/Colors';
 import Button from './src/components/Button';
+import MyKeyboard from './src/components/Keyboard';
+import { ThemeContext } from './src/context/ThemeContext';
+
 export default function App() {
-  const [theme,setTheme] = useState('light');
+  const [theme] = useState('light');
 
   return (
-    <ThemeContext.Provider value='{theme}'>
-    <View style={theme === 'light' ? styles.container : [styles.container, { backgroundColor: '#000' }]}>
-      <StatusBar style="auto" />
-      <Switch
-         value = {theme === 'light'}
-         onValueChange ={() => setTheme(theme == 'light' ? 'dark' : 'light')}
-        /> 
-    <Button isBlue title='3' onPress={function (): void {
-          throw new Error('Function not implemented.');
-        } }/>
-    </View>
+    <ThemeContext.Provider value={theme}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar style="auto" />
+        <MyKeyboard />
+      </SafeAreaView>
     </ThemeContext.Provider>
   );
 }
